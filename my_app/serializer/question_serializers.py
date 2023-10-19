@@ -7,4 +7,4 @@ class QuestionSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many=True)
     class Meta:
         model = Question
-        fields = ('question','image', 'answers')
+        fields = ('id','question','image', 'answers')

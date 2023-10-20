@@ -34,11 +34,18 @@ class Answer(models.Model):
 
 
 class Statistic(models.Model):
+    class CategoryChoices(models.TextChoices):
+        EDEMIREM = 'EDEMMIREM'
+        BILMIREM = 'BILMIREM'
+        SEHVLEREDIREM = 'SEHVLEREDIREM'
+        TAMBILIREM = 'TAMBILIREM'
+        
+        
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     question_id = models.OneToOneField(Question, on_delete=models.CASCADE, related_name='statistics')
-    category = models.CharField(max_length=50)
+    category = models.CharField(max_length=50,choices=CategoryChoices.choices, default=CategoryChoices.EDEMIREM)
     correct_answers = models.PositiveIntegerField()
     incorrect_answers = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.user_id, self.question_id
+        return self.user_id.username

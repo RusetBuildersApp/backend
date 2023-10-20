@@ -13,15 +13,15 @@ class GetQuestionAPIView(APIView):
     
     def get(self, request):
         all_question_ids = Question.objects.values_list('id', flat=True) #save this data on chace for optimize
-        random_question_ids = random.sample(list(all_question_ids), 5)
+        random_question_ids = random.sample(list(all_question_ids), 3)
         random_questions = Question.objects.filter(id__in=random_question_ids)
-        # results = self.paginate_queryset(random_questions, request, view=self)
+
         serializer = QuestionSerializer(random_questions, many=True)
-        # return self.get_paginated_response(serializer.data)
+
         return Response(serializer.data)
     
 
-class CheckQuestion(APIView):
+class CheckQuestion(APIView): #PROBLEM: if user send id that is not include for question it also send false
     def get(self, request, question_id, answer_id):
         question_check = Question.objects.filter(id=question_id).prefetch_related(
             Prefetch("answers", queryset=Answer.objects.filter(is_correct=True))

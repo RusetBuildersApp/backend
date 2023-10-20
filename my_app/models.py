@@ -6,7 +6,6 @@ User = get_user_model()
 
 
 class Exam(models.Model):
-
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     correct_answers = models.PositiveIntegerField()
     incorrect_answers = models.PositiveIntegerField()
@@ -16,7 +15,6 @@ class Exam(models.Model):
 
 
 class Question(models.Model):
-
     question = models.CharField(max_length=1000)
     image = models.FileField(upload_to='images', blank=True, null=True)
     correct_answer_description = models.TextField()
@@ -26,7 +24,6 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-
     answer = models.CharField(max_length=1000)
     question_id = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name='answers')
@@ -37,9 +34,8 @@ class Answer(models.Model):
 
 
 class Statistic(models.Model):
-
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='statistics')
+    question_id = models.OneToOneField(Question, on_delete=models.CASCADE, related_name='statistics')
     category = models.CharField(max_length=50)
     correct_answers = models.PositiveIntegerField()
     incorrect_answers = models.PositiveIntegerField()

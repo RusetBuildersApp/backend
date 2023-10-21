@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0z6#tj6pz*b$k1#v8of)1h@mdd+&q-bqthjad#9((zm5y=a=w+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -72,6 +72,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:5174',
+    'http://127.0.0.1:5173',
+    'http://localhost:5173',
+
+]
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTP_ONLY = True
+# CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:5173',
+    'http://localhost:5173',
+    'http://localhost:5174',
+
+
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

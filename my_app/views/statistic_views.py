@@ -4,16 +4,17 @@ from rest_framework import status
 from django.db.models import F, Case, When, Value, CharField, FloatField, ExpressionWrapper, Count
 from django.db.models.functions import Cast, Round
 from my_app.models import Statistic, Question
+from my_app.services import UpdateOrCreateStatistic
 
 
 class GetUserStatistic(APIView):
     def get(self, request):
         data_statistic = {
-            'category': 'HECBAXMAMISAM',
+            'category': 'HECBAXMAMISAM', #change category name
             'statistic': None
         }
         data_count = {
-            'category': 'HECBAXMAMISAM',
+            'category': 'HECBAXMAMISAM', #change category name
             'category_count': None
         }
         questions_count = Question.objects.aggregate(questions_count=Count('id')) # Add this data to cache

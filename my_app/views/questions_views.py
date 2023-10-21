@@ -4,9 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from my_app.pagination import QuestionPagination
-from my_app.models import Question, Answer
+from my_app.models import Question, Answer, Statistic
 from my_app.serializer.question_serializers import QuestionSerializer
-
+from my_app.services import UpdateOrCreateStatistic
 
 
 class GetQuestionAPIView(APIView):
@@ -30,9 +30,13 @@ class CheckQuestion(APIView): #PROBLEM: if user send id that is not include for 
             question = question_check.first()
             question_description = question.correct_answer_description
             correct_answer_check = False
+            
             for correct in question.answers.all():
                 if correct.id == answer_id:
                     correct_answer_check = True
+                    UpdateOrCreateStatistic.create_or_update(django_model=Statistic, question_id=question_id, correct=True)
+                else:
+                    UpdateOrCreateStatistic.create_or_update(django_model=Statistic, question_id=question_id, correct=False)
             if correct_answer_check:
                 return Response(correct_answer_check, status=status.HTTP_200_OK)
             return Response({"description": question_description, "check": correct_answer_check}, status=status.HTTP_200_OK)

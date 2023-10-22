@@ -35,15 +35,14 @@ class Answer(models.Model):
 
 class Statistic(models.Model):
     class CategoryChoices(models.TextChoices):
-        EDEMIREM = 'EDEMMIREM'
-        BILMIREM = 'BILMIREM'
-        SEHVLEREDIREM = 'SEHVLEREDIREM'
-        TAMBILIREM = 'TAMBILIREM'
+        BILMIREM = 'Не знаю'
+        SEHVLEREDIREM = 'Делаю ошибки'
+        TAMBILIREM = 'Знаю'
         
         
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     question_id = models.OneToOneField(Question, on_delete=models.CASCADE, related_name='statistics')
-    category = models.CharField(max_length=50,choices=CategoryChoices.choices, default=CategoryChoices.EDEMIREM)
+    category = models.CharField(max_length=50,choices=CategoryChoices.choices, default=CategoryChoices.BILMIREM)
     correct_answers = models.FloatField(default=0)
     incorrect_answers = models.FloatField(default=0)
 

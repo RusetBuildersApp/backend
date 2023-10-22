@@ -10,11 +10,11 @@ from my_app.services import UpdateOrCreateStatistic
 class GetUserStatistic(APIView):
     def get(self, request):
         data_statistic = {
-            'category': 'HECBAXMAMISAM', #change category name
+            'category': 'Не решал',
             'statistic': None
         }
         data_count = {
-            'category': 'HECBAXMAMISAM', #change category name
+            'category': 'Не решал',
             'category_count': None
         }
         questions_count = Question.objects.aggregate(questions_count=Count('id')) # Add this data to cache
